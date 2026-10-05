@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<!--
+============================================================
+  NAL9962株式会社 ブランドサイト デザイン案
+  ファイル構成：index.html 単体（CSS / JavaScript インライン）
+  デプロイ：Cloudflare Pages（Direct Upload）にこのファイルをそのままアップロード
+  外部依存：Google Fonts／Unsplash（画像読み込み失敗時はグラデーション背景に自動切替）
+
+  ■ デザインコンセプト「炎を、青へ。」
+    燃焼が不完全な炎は黄〜橙色に、完全燃焼に近づくほど青く澄んでいく。
+    「燃焼効率の改善」という事業内容を、この“炎の色の変化”で直感的に伝える構成。
+    ・ヒーロー：橙色の炎が数秒かけて青い炎へ変わるCanvasアニメーション
+    ・右端のスクロールレール：炎の色が橙→青へ移り、数値が 00.00 → 99.62 まで上昇
+    ・社名の数字「9962」を“限りなく100に近い数字”として解釈（※下記の要確認）
+    ※所在地など土地から着想した要素は使用していません。
+
+  ■ 公開前の確認事項（チェックリスト）
+  [ ] 1. 社名「NAL9962」の由来・読み方。本案では「99.62＝限りなく100に近い数字」と解釈して
+          コンセプト化しています。実際の由来と異なる場合は Concept セクションを差し替えてください。
+  [ ] 2. 取扱素材の具体的な名称・形状・使用方法・作用の仕組み（本案は抽象的な表現にとどめています）
+  [ ] 3. 【景品表示法】燃費向上・出力向上・排出ガス低減などの効果表示は「優良誤認表示」に該当しないよう、
+          合理的な根拠資料（試験データ等）が必要です（不実証広告規制）。数値を載せる場合は根拠の出典を併記。
+  [ ] 4. 効果に関する注記文言（車両の状態・使用環境による差異）の表現確認
+  [ ] 5. 【道路運送車両法／保安基準】車両への装着・添加を伴う素材の場合、保安基準への適合性の確認
+  [ ] 6. 自動車メーカー保証への影響に関する注意書きの要否
+  [ ] 7. オンライン販売を行う場合は【特定商取引法に基づく表記】ページの用意（本ファイルには含みません）
+  [ ] 8. 販売対象（個人向け／法人・整備工場向け卸 など）と、Materials セクション3区分の妥当性
+  [ ] 9. Process（お届けまでの流れ）の各工程が実態と合っているか
+  [ ] 10. 代表者の役職名（本案では「代表取締役」と仮置き）
+  [ ] 11. 代表者メッセージは草案です。必ずご本人の確認・修正を経て公開してください。
+  [ ] 12. 会社概要：設立年月日・資本金・従業員数・取引銀行など未確認項目は空欄のまま
+  [ ] 13. 郵便番号・住所表記（「5丁目911番地の5」の表記ゆれ）の確認
+  [ ] 14. 使用画像はUnsplashのフリー素材（仮）。自社の素材・製品写真への差し替えを推奨
+  [ ] 15. 英文社名表記（本案では「NAL9962 Co., Ltd.」と仮置き）
+  [ ] 16. OGP画像・favicon の用意
+============================================================
+-->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAL9962株式会社｜燃焼効率の改善に向き合う素材</title>
+<meta name="description" content="NAL9962株式会社は、自動車の燃焼効率改善を目的とした素材を販売しています。">
+<!-- 要確認：OGP画像のURL（公開ドメイン確定後に設定） -->
+<meta property="og:title" content="NAL9962株式会社">
+<meta property="og:description" content="炎を、青へ。自動車の燃焼効率改善を目的とした素材を販売しています。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Cpath d='M32 10c6 10 14 16 14 28a14 14 0 0 1-28 0c0-8 5-12 8-18 1 5 3 7 6 8-2-6-2-12 0-18z' fill='%235aa9ff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho+B1:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --chamber:#0b1220;      /* 燃焼室の暗がり */
+  --chamber-2:#101a2c;
+  --steel:#8a96a8;        /* エンジン金属 */
+  --line:rgba(170,190,215,.16);
+  --paper:#eef2f6;
+  --ember:#e8893a;        /* 不完全燃焼の橙 */
+  --ember-soft:#f3b574;
+  --flame:#5aa9ff;        /* 完全燃焼の青 */
+  --flame-pale:#bfe6ff;
+  --serif:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+  --sans:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --latin:"Barlow Condensed","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --pad:clamp(20px,5vw,72px);
+  --maxw:1180px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+  scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));
+}
+body{
+  margin:0;
+  background:var(--chamber);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.9;
+  letter-spacing:.04em;
+  word-break:auto-phrase;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+p,h1,h2,h3{text-wrap:pretty}
+.nw{display:inline-block}
+:focus-visible{outline:2px solid var(--flame-pale);outline-offset:4px;border-radius:2px}
+
+.skip{
+  position:fixed;left:16px;top:-60px;z-index:200;
+  background:var(--flame);color:var(--chamber);
+  padding:10px 16px;text-decoration:none;font-weight:700;border-radius:4px;
+  transition:top .2s;
+}
+.skip:focus{top:calc(12px + env(safe-area-inset-top,0px))}
+
+/* ---------- Header ---------- */
+.header{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  padding-top:env(safe-area-inset-top,0px);
+  transition:background .4s var(--ease),border-color .4s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.header.is-scrolled{
+  background:rgba(11,18,32,.82);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom-color:var(--line);
+}
+.header__in{
+  max-width:1400px;margin:0 auto;height:72px;
+  padding:0 var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo__mark{width:22px;height:28px}
+.logo__type{font-family:var(--latin);font-weight:500;font-size:1.45rem;letter-spacing:.14em;line-height:1}
+.logo__sub{font-size:.68rem;color:var(--steel);letter-spacing:.2em;display:block;margin-top:3px}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:28px}
+.nav a{
+  text-decoration:none;font-family:var(--latin);font-size:1.02rem;letter-spacing:.12em;
+  color:#c9d3e0;position:relative;padding:6px 0;
+}
+.nav a::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg,var(--ember),var(--flame));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);
+}
+.nav a:hover::after,.nav a:focus-visible::after{transform:scaleX(1)}
+.menu-btn{
+  display:none;background:none;border:0;cursor:pointer;color:var(--paper);
+  width:44px;height:44px;position:relative;
+}
+.menu-btn span{
+  position:absolute;left:10px;right:10px;height:1.5px;background:currentColor;
+  transition:transform .35s var(--ease),opacity .2s;
+}
+.menu-btn span:nth-child(1){top:16px}
+.menu-btn span:nth-child(2){top:22px}
+.menu-btn span:nth-child(3){top:28px}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* ---------- Scroll rail（燃焼ゲージ） ---------- */
+.rail{
+  position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:90;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  pointer-events:none;
+}
+.rail__track{
+  position:relative;width:2px;height:min(46vh,380px);
+  background:var(--line);border-radius:2px;
+}
+.rail__fill{
+  position:absolute;left:0;top:0;width:100%;height:0;border-radius:2px;
+  background:linear-gradient(180deg,var(--ember),var(--flame));
+}
+.rail__flame{
+  position:absolute;left:50%;top:0;width:14px;height:20px;
+  transform:translate(-50%,-50%);
+  filter:drop-shadow(0 0 6px var(--rail-glow,rgba(232,137,58,.8)));
+}
+.rail__ticks{position:absolute;inset:0 auto 0 8px;display:flex;flex-direction:column;justify-content:space-between}
+.rail__ticks i{display:block;width:5px;height:1px;background:var(--line)}
+.rail__read{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--steel);
+  writing-mode:vertical-rl;
+}
+.rail__read b{font-weight:500;color:var(--paper)}
+
+/* ---------- Common ---------- */
+main{display:block}
+.section{position:relative;padding:clamp(96px,14vw,180px) var(--pad)}
+.wrap{max-width:var(--maxw);margin:0 auto}
+.sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:clamp(40px,6vw,72px);flex-wrap:wrap}
+.sec-head__en{
+  font-family:var(--latin);font-weight:300;font-size:clamp(2.6rem,6vw,4.4rem);
+  line-height:1;letter-spacing:.04em;color:var(--paper);
+}
+.sec-head__ja{font-size:.86rem;color:var(--steel);letter-spacing:.2em}
+.h2{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(1.6rem,3.4vw,2.5rem);line-height:1.6;letter-spacing:.08em;margin:0 0 28px;
+}
+.lead{color:#c4cedb;max-width:34em}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.is-in{opacity:1;transform:none}
+
+/* photo frame with gradient fallback */
+.ph{position:relative;overflow:hidden;background:
+  radial-gradient(120% 90% at 30% 100%,rgba(232,137,58,.35),transparent 55%),
+  radial-gradient(90% 90% at 80% 10%,rgba(90,169,255,.35),transparent 60%),
+  linear-gradient(160deg,#16233a,#0b1220);}
+.ph img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;min-height:100svh;overflow:hidden;
+  display:grid;grid-template-columns:1fr auto;align-items:end;
+  padding:calc(120px + env(safe-area-inset-top,0px)) var(--pad) clamp(56px,8vw,96px);
+}
+.hero__canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero__veil{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(11,18,32,.55) 0%,transparent 30%,transparent 62%,rgba(11,18,32,.9) 100%);
+}
+.hero__lead{position:relative;z-index:2;max-width:30em;padding-right:24px}
+.hero__name{
+  font-family:var(--latin);font-weight:300;font-size:clamp(1rem,1.6vw,1.2rem);
+  letter-spacing:.3em;color:var(--steel);margin:0 0 18px;
+}
+.hero__text{margin:0;color:#d4dce7;font-size:clamp(.95rem,1.3vw,1.05rem)}
+.hero__title{
+  position:relative;z-index:2;margin:0;align-self:center;
+  writing-mode:vertical-rl;
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(3rem,6vw,5.4rem);line-height:1.35;letter-spacing:.22em;
+  margin-right:clamp(24px,6vw,96px);
+}
+.hero__title .t{display:block;opacity:0;transform:translateY(-14px);transition:opacity 1.4s var(--ease),transform 1.4s var(--ease)}
+.hero__title .t2{transition-delay:.35s}
+.is-loaded .hero__title .t{opacity:1;transform:none}
+.hero__en{
+  position:absolute;left:var(--pad);top:calc(118px + env(safe-area-inset-top,0px));z-index:2;
+  font-family:var(--latin);font-weight:300;font-size:clamp(.95rem,1.4vw,1.1rem);letter-spacing:.24em;color:var(--flame-pale);
+  opacity:.8;margin:0;
+}
+.scroll-cue{
+  position:absolute;left:50%;bottom:24px;z-index:2;transform:translateX(-50%);
+  width:1px;height:48px;background:linear-gradient(180deg,transparent,var(--flame-pale));
+  animation:cue 2.4s var(--ease) infinite;
+}
+@keyframes cue{0%{transform:translateX(-50%) scaleY(0);transform-origin:top}50%{transform:translateX(-50%) scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:translateX(-50%) scaleY(0);transform-origin:bottom}}
+
+/* ---------- Concept ---------- */
+.concept{background:linear-gradient(180deg,var(--chamber),var(--chamber-2))}
+.concept__grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(40px,7vw,110px);align-items:center}
+.figure-num{
+  font-family:var(--latin);font-weight:300;line-height:.9;letter-spacing:-.01em;
+  font-size:clamp(6rem,17vw,14rem);
+  background:linear-gradient(100deg,var(--ember) 0%,var(--ember-soft) 28%,var(--flame-pale) 62%,var(--flame) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-variant-numeric:tabular-nums;
+}
+.figure-cap{margin-top:14px;color:var(--steel);font-size:.86rem;letter-spacing:.12em}
+.gap-bar{margin-top:30px;height:6px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden;position:relative;max-width:520px}
+.gap-bar i{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,var(--ember),var(--flame));border-radius:6px;transition:width 2.4s var(--ease)}
+.is-in .gap-bar i{width:99.62%}
+.concept p{color:#c4cedb}
+
+/* ---------- Band photo ---------- */
+.band{position:relative;height:clamp(300px,52vw,560px)}
+.band .ph{position:absolute;inset:0}
+.band .ph img{filter:saturate(.7) contrast(1.05) brightness(.62)}
+.band__cap{
+  position:absolute;left:var(--pad);bottom:clamp(28px,5vw,56px);z-index:2;margin:0;
+  font-family:var(--serif);font-size:clamp(1.25rem,2.6vw,2rem);letter-spacing:.14em;line-height:1.7;
+  text-shadow:0 2px 20px rgba(0,0,0,.5);
+}
+
+/* ---------- Business（燃焼ダイアグラム） ---------- */
+.biz__intro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,90px);align-items:end;margin-bottom:clamp(48px,7vw,88px)}
+.diagram{
+  border:1px solid var(--line);border-radius:18px;
+  background:radial-gradient(80% 120% at 72% 50%,rgba(90,169,255,.07),transparent 60%),rgba(255,255,255,.015);
+  padding:clamp(16px,3vw,36px);overflow-x:auto;
+}
+.diagram svg{width:100%;min-width:640px;height:auto;display:block}
+.diagram .flow{fill:none;stroke-width:1.5;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s var(--ease)}
+.diagram .flow.d2{transition-delay:.3s}
+.diagram .flow.d3{transition-delay:1.1s}
+.diagram .flow.d4{transition-delay:2.6s}
+.diagram.is-in .flow{stroke-dashoffset:0}
+.diagram .node{opacity:0;transition:opacity 1s var(--ease)}
+.diagram.is-in .node{opacity:1}
+.diagram .node.n2{transition-delay:.9s}
+.diagram .node.n3{transition-delay:1.5s}
+.diagram .node.n4{transition-delay:2.9s}
+.diagram .fl-ember{transition:opacity 1.6s var(--ease) 2.1s}
+.diagram .fl-blue{opacity:0;transition:opacity 1.6s var(--ease) 2.1s}
+.diagram.is-in .fl-ember{opacity:0}
+.diagram.is-in .fl-blue{opacity:1}
+.diagram text{font-family:var(--sans);fill:#c9d3e0;font-size:14px;letter-spacing:.08em}
+.diagram .tl{font-family:var(--latin);fill:var(--steel);font-size:13px;letter-spacing:.16em}
+.diagram-note{margin-top:16px;color:var(--steel);font-size:.8rem}
+
+/* ---------- Materials ---------- */
+.mat{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,36px)}
+.mat__item{margin:0}
+.mat__item .ph{aspect-ratio:4/5;border-radius:14px}
+.mat__item .ph img{transition:transform 1.2s var(--ease);filter:saturate(.8)}
+.mat__item:hover .ph img{transform:scale(1.04)}
+.mat__item:nth-child(2){margin-top:clamp(0px,6vw,72px)}
+.mat__item h3{font-family:var(--serif);font-weight:600;font-size:1.25rem;letter-spacing:.1em;margin:22px 0 8px;line-height:1.6}
+.mat__item p{margin:0;color:#b8c3d2;font-size:.94rem}
+.mat__tag{font-family:var(--latin);font-size:.95rem;letter-spacing:.14em;color:var(--flame-pale);margin-top:14px;display:block;opacity:.8}
+
+/* ---------- Values ---------- */
+.values{background:var(--chamber-2)}
+.val{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.val__item{padding:40px clamp(18px,2.6vw,36px) 16px 0;position:relative}
+.val__item + .val__item{padding-left:clamp(18px,2.6vw,36px);border-left:1px solid var(--line)}
+.val__glyph{width:54px;height:54px;margin-bottom:22px}
+.val__item h3{font-family:var(--serif);font-weight:600;font-size:clamp(1.3rem,2vw,1.6rem);letter-spacing:.14em;margin:0 0 12px}
+.val__item p{margin:0;color:#b8c3d2;font-size:.94rem}
+.note{margin-top:48px;font-size:.78rem;color:var(--steel);line-height:1.8;max-width:52em}
+
+/* ---------- Process ---------- */
+.proc{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.4vw,32px);position:relative;list-style:none;margin:0;padding:0}
+.proc::before{content:"";position:absolute;left:0;right:0;top:27px;height:1px;background:var(--line)}
+.proc::after{content:"";position:absolute;left:0;top:27px;height:1px;width:0;background:linear-gradient(90deg,var(--ember),var(--flame));transition:width 2.4s var(--ease)}
+.proc.is-in::after{width:100%}
+.proc li{position:relative;padding-top:0}
+.proc__n{
+  width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+  background:var(--chamber);border:1px solid var(--line);position:relative;z-index:1;
+  font-family:var(--latin);font-size:1.15rem;letter-spacing:.06em;color:var(--flame-pale);
+}
+.proc h3{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:.1em;margin:24px 0 8px}
+.proc p{margin:0;color:#b8c3d2;font-size:.92rem}
+.proc__ph{margin-top:clamp(56px,8vw,96px);height:clamp(220px,32vw,380px);border-radius:16px}
+.proc__ph img{filter:saturate(.7) brightness(.8)}
+
+/* ---------- Message ---------- */
+.message{
+  background:
+    radial-gradient(60% 70% at 85% 30%,rgba(90,169,255,.08),transparent 70%),
+    var(--chamber);
+}
+.msg{display:flex;flex-direction:row-reverse;gap:clamp(40px,6vw,90px);align-items:flex-start;justify-content:flex-end}
+.msg__title{
+  writing-mode:vertical-rl;margin:0;
+  font-family:var(--serif);font-weight:600;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:.2em;line-height:1.7;
+  flex-shrink:0;
+}
+.msg__body{
+  writing-mode:vertical-rl;
+  font-family:var(--serif);font-weight:500;font-size:1.02rem;line-height:2.3;letter-spacing:.14em;
+  max-height:30em;color:#d4dce7;
+}
+.msg__body p{margin:0 0 0 1.6em}
+.msg__sign{
+  writing-mode:vertical-rl;margin-top:auto;align-self:flex-end;
+  font-family:var(--serif);letter-spacing:.2em;color:var(--paper);
+}
+.msg__sign small{display:block;color:var(--steel);font-size:.82rem;margin-left:.8em}
+.msg__sign strong{font-weight:600;font-size:1.3rem}
+
+/* ---------- Company ---------- */
+.company__grid{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(32px,6vw,96px)}
+.profile{margin:0;border-top:1px solid var(--line)}
+.profile > div{display:grid;grid-template-columns:9em 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.profile dt{color:var(--steel);font-size:.9rem;letter-spacing:.14em}
+.profile dd{margin:0}
+.company__ph{border-radius:16px;aspect-ratio:4/5}
+.company__ph img{filter:saturate(.6) brightness(.8)}
+
+/* ---------- Footer ---------- */
+.footer{border-top:1px solid var(--line);padding:56px var(--pad) calc(40px + env(safe-area-inset-bottom,0px))}
+.footer__in{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:flex-end}
+.footer nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 24px}
+.footer nav a{text-decoration:none;font-family:var(--latin);letter-spacing:.12em;color:#b8c3d2}
+.footer nav a:hover{color:var(--paper)}
+.copy{font-family:var(--latin);letter-spacing:.14em;color:var(--steel);font-size:.9rem;margin:24px 0 0}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  .nav{
+    position:fixed;inset:0;z-index:95;background:rgba(11,18,32,.97);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s;
+    padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+  }
+  .nav.is-open{opacity:1;visibility:visible}
+  .nav ul{flex-direction:column;align-items:center;gap:22px}
+  .nav a{font-size:1.6rem}
+  .menu-btn{display:block;z-index:101}
+  .concept__grid,.biz__intro,.company__grid{grid-template-columns:1fr}
+  .mat{grid-template-columns:1fr 1fr}
+  .mat__item:nth-child(2){margin-top:0}
+  .proc{grid-template-columns:1fr 1fr;row-gap:44px}
+  .proc::before,.proc::after{display:none}
+  .company__ph{aspect-ratio:16/9;order:-1}
+}
+@media (max-width:760px){
+  body{font-size:15px}
+  .rail{right:8px}
+  .rail__track{height:34vh}
+  .rail__read{display:none}
+  .hero{grid-template-columns:1fr;align-content:end;gap:32px}
+  .hero__title{writing-mode:horizontal-tb;align-self:auto;margin:0;font-size:clamp(2.6rem,12vw,3.6rem);letter-spacing:.12em;order:-1}
+  .mat{grid-template-columns:1fr}
+  .mat__item .ph{aspect-ratio:16/10}
+  .val{grid-template-columns:1fr}
+  .val__item,.val__item + .val__item{padding:32px 0 8px;border-left:0}
+  .val__item + .val__item{border-top:1px solid var(--line)}
+  .proc{grid-template-columns:1fr}
+  .msg{flex-direction:column;gap:32px}
+  .msg__title,.msg__body,.msg__sign{writing-mode:horizontal-tb}
+  .msg__body{max-height:none;line-height:2.1;letter-spacing:.06em}
+  .msg__body p{margin:0 0 1.4em}
+  .msg__sign{align-self:flex-end;text-align:right}
+  .msg__sign small{margin:0 0 4px}
+  .profile > div{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .hero__title .t{opacity:1;transform:none}
+  .diagram .flow{stroke-dashoffset:0}
+  .diagram .node{opacity:1}
+  .diagram .fl-ember{opacity:0}
+  .diagram .fl-blue{opacity:1}
+  .gap-bar i{width:99.62%}
+  .proc::after{width:100%}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へスキップ</a>
+
+<header class="header" id="header">
+  <div class="header__in">
+    <a class="logo" href="#top" aria-label="NAL9962株式会社 トップへ">
+      <svg class="logo__mark" viewBox="0 0 22 28" aria-hidden="true">
+        <defs><linearGradient id="lg-logo" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#5aa9ff"/><stop offset="1" stop-color="#bfe6ff"/></linearGradient></defs>
+        <path d="M11 1c3.5 6 9 9.5 9 17a9 9 0 0 1-18 0c0-5 3-7.5 5-11 .6 3 2 4.4 3.8 5-1.2-3.8-1.2-7.6.2-11z" fill="url(#lg-logo)"/>
+      </svg>
+      <span>
+        <span class="logo__type">NAL9962</span>
+        <span class="logo__sub">NAL9962株式会社</span>
+      </span>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-controls="nav" aria-expanded="false" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav" id="nav" aria-label="メインナビゲーション">
+      <ul>
+        <li><a href="#concept">Concept</a></li>
+        <li><a href="#business">Business</a></li>
+        <li><a href="#materials">Materials</a></li>
+        <li><a href="#values">Values</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#message">Message</a></li>
+        <li><a href="#company">Company</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- スクロールレール：炎が橙→青へ、数値が 00.00→99.62 へ -->
+<div class="rail" aria-hidden="true">
+  <div class="rail__track">
+    <div class="rail__ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="rail__fill" id="railFill"></div>
+    <svg class="rail__flame" id="railFlame" viewBox="0 0 14 20"><path id="railFlamePath" d="M7 0c2.2 4 6 6.2 6 11.2a6 6 0 0 1-12 0c0-3.4 2-5 3.3-7.4.4 2 1.3 3 2.5 3.3C6 4.6 6 2.2 7 0z" fill="#e8893a"/></svg>
+  </div>
+  <div class="rail__read"><b id="railNum">00.00</b></div>
+</div>
+
+<main id="main">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="top" aria-label="メインビジュアル">
+    <canvas class="hero__canvas" id="flame" aria-hidden="true"></canvas>
+    <div class="hero__veil" aria-hidden="true"></div>
+    <p class="hero__en">Toward the blue flame</p>
+    <div class="hero__lead">
+      <p class="hero__name">NAL9962 Co., Ltd.<!-- 要確認：英文社名表記 --></p>
+      <p class="hero__text"><span class="nw">自動車の燃焼効率改善を目的とした</span><span class="nw">素材を販売しています。</span><br><span class="nw">燃料を、最後まで力に変えるために。</span></p>
+    </div>
+    <h1 class="hero__title">
+      <span class="t t1">炎を、</span>
+      <span class="t t2">青へ。</span>
+    </h1>
+    <span class="scroll-cue" aria-hidden="true"></span>
+  </section>
+
+  <!-- ===== Concept ===== -->
+  <!-- 要確認：社名「9962」を“99.62＝限りなく100に近い数字”と解釈したコンセプトです。実際の由来をご確認ください -->
+  <section class="section concept" id="concept">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="sec-head__en">Concept</span><span class="sec-head__ja">社名に込めた数字</span></div>
+      <div class="concept__grid">
+        <div class="reveal" id="conceptNum">
+          <div class="figure-num" aria-label="99.62"><span id="countUp">99.62</span></div>
+          <div class="gap-bar" aria-hidden="true"><i></i></div>
+          <p class="figure-cap">100に、限りなく近づく。</p>
+        </div>
+        <div class="reveal">
+          <h2 class="h2"><span class="nw">燃やしきれなかった</span><span class="nw">わずかな余白に、</span><span class="nw">向き合う。</span></h2>
+          <p>エンジンの中では、燃料のすべてが力に変わっているわけではありません。燃えきらずに残る、ほんのわずかな余白があります。</p>
+          <p>NAL9962は、その余白に目を向ける会社です。炎が橙色から澄んだ青へ変わっていくように、燃焼をより理想に近い姿へ。社名に刻んだ数字は、その歩みの指針です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Band ===== -->
+  <div class="band" role="img" aria-label="夜の道路を走る車の光跡">
+    <div class="ph"><img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=2000&q=70" alt="" loading="lazy" onerror="this.remove()"></div>
+    <p class="band__cap reveal">走りの静けさは、<br>燃え方から生まれる。</p>
+  </div>
+
+  <!-- ===== Business ===== -->
+  <section class="section business" id="business">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="sec-head__en">Business</span><span class="sec-head__ja">事業内容</span></div>
+      <div class="biz__intro">
+        <h2 class="h2 reveal" style="margin:0"><span class="nw">素材の力で、</span><span class="nw">燃焼を整える。</span></h2>
+        <p class="lead reveal" style="margin:0">私たちは、自動車の燃焼効率改善を目的とした素材を販売しています。燃料と空気がエンジンの中で出会う、その瞬間の質を高めること。それが、私たちの扱う素材の役割です。<!-- 要確認：素材の具体的な名称・形状・使用方法・作用の仕組み --></p>
+      </div>
+
+      <!-- 燃焼ダイアグラム（要確認：素材が作用する位置・仕組みは実態に合わせて修正） -->
+      <div class="diagram" id="diagram">
+        <svg viewBox="0 0 960 340" role="img" aria-labelledby="dgTitle dgDesc">
+          <title id="dgTitle">素材が燃焼を整える流れ</title>
+          <desc id="dgDesc">燃料と空気が素材を経て燃焼室に入り、橙色の炎が青い炎へ変わり、走りの力になる様子を示した図</desc>
+          <defs>
+            <linearGradient id="gFlow" x1="0" x2="1"><stop offset="0" stop-color="#8a96a8"/><stop offset="1" stop-color="#5aa9ff"/></linearGradient>
+            <linearGradient id="gEmber" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#f3b574"/><stop offset=".55" stop-color="#e8893a"/><stop offset="1" stop-color="#b8521c" stop-opacity=".2"/></linearGradient>
+            <linearGradient id="gBlue" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e6f5ff"/><stop offset=".4" stop-color="#5aa9ff"/><stop offset="1" stop-color="#2b5fd9" stop-opacity=".25"/></linearGradient>
+            <radialGradient id="gGlow"><stop offset="0" stop-color="#5aa9ff" stop-opacity=".35"/><stop offset="1" stop-color="#5aa9ff" stop-opacity="0"/></radialGradient>
+          </defs>
+
+          <!-- inputs -->
+          <g class="node">
+            <text class="tl" x="20" y="92">Fuel</text><text x="20" y="116">燃料</text>
+            <text class="tl" x="20" y="238">Air</text><text x="20" y="262">空気</text>
+          </g>
+          <path class="flow" pathLength="1" stroke="url(#gFlow)" d="M20 132 H150 C220 132 230 170 290 170"/>
+          <path class="flow d2" pathLength="1" stroke="url(#gFlow)" d="M20 216 H150 C220 216 230 170 290 170"/>
+
+          <!-- material -->
+          <g class="node n2">
+            <polygon points="330,128 366,149 366,191 330,212 294,191 294,149" fill="rgba(90,169,255,.08)" stroke="#bfe6ff" stroke-width="1.2"/>
+            <polygon points="330,146 350,158 350,182 330,194 310,182 310,158" fill="none" stroke="#5aa9ff" stroke-width="1" opacity=".7"/>
+            <text class="tl" x="330" y="244" text-anchor="middle">Material</text>
+            <text x="330" y="268" text-anchor="middle">素材</text>
+          </g>
+          <path class="flow d3" pathLength="1" stroke="#5aa9ff" d="M368 170 H500"/>
+
+          <!-- chamber -->
+          <g class="node n3">
+            <rect x="500" y="60" width="200" height="220" rx="22" fill="rgba(255,255,255,.02)" stroke="#8a96a8" stroke-width="1.2"/>
+            <circle cx="600" cy="170" r="90" fill="url(#gGlow)"/>
+            <g class="fl-ember">
+              <path d="M600 90c16 26 44 44 44 86a44 44 0 0 1-88 0c0-26 16-38 26-56 3 14 10 22 19 25-7-18-7-36-1-55z" fill="url(#gEmber)"/>
+            </g>
+            <g class="fl-blue">
+              <path d="M600 100c14 24 38 40 38 76a38 38 0 0 1-76 0c0-22 14-33 22-49 3 12 9 19 17 22-6-16-6-32-1-49z" fill="url(#gBlue)"/>
+              <path d="M600 150c6 10 16 17 16 32a16 16 0 0 1-32 0c0-10 6-15 9-21 1 5 3 8 7 9-2-7-2-13 0-20z" fill="#e6f5ff" opacity=".9"/>
+            </g>
+            <text class="tl" x="600" y="306" text-anchor="middle">Combustion</text>
+            <text x="600" y="330" text-anchor="middle">燃焼</text>
+          </g>
+          <path class="flow d4" pathLength="1" stroke="#5aa9ff" d="M702 170 H830"/>
+
+          <!-- output -->
+          <g class="node n4">
+            <circle cx="872" cy="170" r="40" fill="none" stroke="#bfe6ff" stroke-width="1.2"/>
+            <circle cx="872" cy="170" r="6" fill="#5aa9ff"/>
+            <path d="M872 138 V148 M872 192 V202 M840 170 H850 M894 170 H904" stroke="#bfe6ff" stroke-width="1.2"/>
+            <text class="tl" x="872" y="244" text-anchor="middle">Drive</text>
+            <text x="872" y="268" text-anchor="middle">走りの力</text>
+          </g>
+        </svg>
+      </div>
+      <p class="diagram-note">図は事業内容をわかりやすく示すためのイメージです。</p>
+    </div>
+  </section>
+
+  <!-- ===== Materials ===== -->
+  <!-- 要確認：販売対象の区分（個人向け／業務車両向け／取扱店・整備工場向け卸）は仮置きです -->
+  <section class="section materials" id="materials">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="sec-head__en">Materials</span><span class="sec-head__ja">取り扱う素材と、届け先</span></div>
+      <div class="mat">
+        <figure class="mat__item reveal">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&w=900&q=70" alt="道路に停まる乗用車" loading="lazy" onerror="this.remove()"></div>
+          <figcaption>
+            <h3>毎日の一台のために</h3>
+            <p>通勤や買い物、週末のドライブ。日々乗り続ける乗用車の燃焼環境を見つめる素材をお届けします。</p>
+            <span class="mat__tag">For passenger cars</span>
+          </figcaption>
+        </figure>
+        <figure class="mat__item reveal">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1655478157959-3fcfc543c1a2?auto=format&fit=crop&w=900&q=70" alt="道路を走るトラック" loading="lazy" onerror="this.remove()"></div>
+          <figcaption>
+            <h3>走り続ける業務車両のために</h3>
+            <p>長い距離を走る商用車・業務車両。燃料と向き合う時間が長いからこそ、燃え方の質にこだわります。</p>
+            <span class="mat__tag">For commercial vehicles</span>
+          </figcaption>
+        </figure>
+        <figure class="mat__item reveal">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=70" alt="エンジンを整備する手元" loading="lazy" onerror="this.remove()"></div>
+          <figcaption>
+            <h3>取扱店・整備工場のために</h3>
+            <p>車と日々向き合うプロの現場へ。素材の卸販売を通じて、お客さまの一台に寄り添う仕事を支えます。</p>
+            <span class="mat__tag">For dealers and workshops</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Values ===== -->
+  <!-- 要確認【景品表示法】：燃費・出力・排出ガス等の効果を具体的に表示する場合は、合理的な根拠資料が必要です -->
+  <section class="section values" id="values">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="sec-head__en">Values</span><span class="sec-head__ja">私たちが目指す燃焼</span></div>
+      <div class="val">
+        <div class="val__item reveal">
+          <svg class="val__glyph" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25" fill="none" stroke="#8a96a8" stroke-width="1"/><path d="M27 11c4 7 10 11 10 20a10 10 0 0 1-20 0c0-6 4-8.5 6-13 .8 3.4 2.4 5 4.4 5.6-1.6-4.2-1.6-8.4-.4-12.6z" fill="#5aa9ff"/></svg>
+          <h3>燃やしきる</h3>
+          <p>燃料を、できるかぎり余さず力へ。青く澄んだ炎を理想に、燃焼のあり方を見つめ続けます。</p>
+        </div>
+        <div class="val__item reveal">
+          <svg class="val__glyph" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25" fill="none" stroke="#8a96a8" stroke-width="1"/><path d="M12 36 H42" stroke="#bfe6ff" stroke-width="1.2"/><path d="M16 36 C22 22 32 22 38 36" fill="none" stroke="#5aa9ff" stroke-width="1.4"/><circle cx="27" cy="25.5" r="2.4" fill="#5aa9ff"/></svg>
+          <h3>長く走る</h3>
+          <p>同じ燃料で、より心地よい走りを。車と過ごす時間が、長く快適に続くことを目指します。</p>
+        </div>
+        <div class="val__item reveal">
+          <svg class="val__glyph" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25" fill="none" stroke="#8a96a8" stroke-width="1"/><path d="M14 30c5-6 9 6 14 0s9 6 14 0" fill="none" stroke="#bfe6ff" stroke-width="1.2" opacity=".5"/><path d="M14 22c5-6 9 6 14 0s9 6 14 0" fill="none" stroke="#5aa9ff" stroke-width="1.4"/></svg>
+          <h3>残さない</h3>
+          <p>燃えきらずに残るものを、少しでも減らしたい。車の先にある空気と環境にも目を向けます。</p>
+        </div>
+      </div>
+      <!-- 要確認：注記文言の表現（法務・根拠資料と合わせてご確認ください） -->
+      <p class="note reveal">※ 素材の使用による体感や変化は、車種・車両の状態・運転状況・使用環境などにより異なります。</p>
+    </div>
+  </section>
+
+  <!-- ===== Process ===== -->
+  <!-- 要確認：お届けまでの工程が実態と合っているか -->
+  <section class="section process" id="process">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="sec-head__en">Process</span><span class="sec-head__ja">素材が届くまで</span></div>
+      <ol class="proc" id="proc">
+        <li class="reveal">
+          <span class="proc__n">01</span>
+          <h3>素材を選ぶ</h3>
+          <p>燃焼効率の改善という目的に照らし、取り扱う素材を見極めます。</p>
+        </li>
+        <li class="reveal">
+          <span class="proc__n">02</span>
+          <h3>品質を確かめる</h3>
+          <p>出荷前に一つひとつの状態を確認し、安定した品質を保ちます。</p>
+        </li>
+        <li class="reveal">
+          <span class="proc__n">03</span>
+          <h3>丁寧に届ける</h3>
+          <p>素材の特性に合わせて梱包し、ご注文いただいた方のもとへ。</p>
+        </li>
+        <li class="reveal">
+          <span class="proc__n">04</span>
+          <h3>使い方に寄り添う</h3>
+          <p>お届けした後も、正しく使っていただくための情報をお伝えします。</p>
+        </li>
+      </ol>
+      <div class="ph proc__ph reveal">
+        <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1800&q=70" alt="作業台で部材を確認する様子" loading="lazy" onerror="this.remove()">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Message ===== -->
+  <!-- 要確認：代表者メッセージは草案です。必ず堀口様ご本人の確認・修正を経て公開してください -->
+  <!-- 要確認：役職名（「代表取締役」は仮置き） -->
+  <section class="section message" id="message">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="sec-head__en">Message</span><span class="sec-head__ja">代表メッセージ</span></div>
+      <div class="msg reveal">
+        <h2 class="msg__title">燃え方を、<br>変えていく。</h2>
+        <div class="msg__body">
+          <p>車が走るとき、エンジンの中では小さな炎が絶え間なく生まれています。その炎がどれだけ澄んでいるかで、走りも、燃料の使われ方も変わります。</p>
+          <p>私たちが扱うのは、その燃え方に向き合うための素材です。目に見えない場所の仕事だからこそ、誠実に、確かなものだけをお届けしたいと考えています。</p>
+          <p>百にはまだ届かない。けれど、限りなく近づくことはできる。社名に込めたその思いを胸に、一台一台の走りを支えてまいります。</p>
+        </div>
+        <p class="msg__sign"><small>NAL9962株式会社 代表取締役</small><strong>堀口 真弘</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Company ===== -->
+  <section class="section company" id="company">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="sec-head__en">Company</span><span class="sec-head__ja">会社概要</span></div>
+      <div class="company__grid">
+        <div class="ph company__ph reveal">
+          <img src="https://images.unsplash.com/photo-1649797463632-4c617f06f581?auto=format&fit=crop&w=1000&q=70" alt="薄暗がりに佇む車のシルエット" loading="lazy" onerror="this.remove()">
+        </div>
+        <dl class="profile reveal">
+          <div><dt>会社名</dt><dd>NAL9962株式会社</dd></div>
+          <div><dt>代表者</dt><dd>代表取締役 堀口 真弘<!-- 要確認：役職名 --></dd></div>
+          <div><dt>所在地</dt><dd>〒198-0063<br>東京都青梅市梅郷5丁目911番地の5<!-- 要確認：住所表記 --></dd></div>
+          <div><dt>事業内容</dt><dd>自動車の燃焼効率改善を目的とした素材の販売</dd></div>
+          <!-- <div><dt>設立</dt><dd> 要確認：設立年月日（未確認のため空欄） --></dd></div>
+          <!-- <div><dt>資本金</dt><dd> 要確認：資本金（未確認のため空欄） --></dd></div>
+          <!-- 要確認：従業員数・取引銀行・主要取引先など、掲載する項目があれば追加 -->
+          <!-- 要確認：オンライン販売を行う場合、特定商取引法に基づく表記ページへのリンクを追加 -->
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__in">
+    <div>
+      <a class="logo" href="#top" aria-label="NAL9962株式会社 トップへ">
+        <svg class="logo__mark" viewBox="0 0 22 28" aria-hidden="true"><path d="M11 1c3.5 6 9 9.5 9 17a9 9 0 0 1-18 0c0-5 3-7.5 5-11 .6 3 2 4.4 3.8 5-1.2-3.8-1.2-7.6.2-11z" fill="#5aa9ff"/></svg>
+        <span><span class="logo__type">NAL9962</span><span class="logo__sub">NAL9962株式会社</span></span>
+      </a>
+      <p class="copy">&copy; <span id="year">2026</span> NAL9962 Co., Ltd.</p>
+    </div>
+    <nav aria-label="フッターナビゲーション">
+      <ul>
+        <li><a href="#concept">Concept</a></li>
+        <li><a href="#business">Business</a></li>
+        <li><a href="#materials">Materials</a></li>
+        <li><a href="#values">Values</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#message">Message</a></li>
+        <li><a href="#company">Company</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ---------- Header state ---------- */
+  var header = document.getElementById("header");
+  function onScrollHeader(){ header.classList.toggle("is-scrolled", window.scrollY > 40); }
+
+  /* ---------- Mobile menu ---------- */
+  var btn = document.getElementById("menuBtn");
+  var nav = document.getElementById("nav");
+  function setMenu(open){
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+    nav.classList.toggle("is-open", open);
+    document.body.style.overflow = open ? "hidden" : "";
+    if(open){ var first = nav.querySelector("a"); if(first) first.focus(); }
+  }
+  btn.addEventListener("click", function(){ setMenu(btn.getAttribute("aria-expanded") !== "true"); });
+  nav.addEventListener("click", function(e){ if(e.target.closest("a") && nav.classList.contains("is-open")) setMenu(false); });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && nav.classList.contains("is-open")){ setMenu(false); btn.focus(); }
+  });
+  window.matchMedia("(min-width: 961px)").addEventListener("change", function(m){ if(m.matches) setMenu(false); });
+
+  /* ---------- Reveal ---------- */
+  var targets = document.querySelectorAll(".reveal, #diagram, #proc");
+  if("IntersectionObserver" in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add("is-in");
+          if(en.target.id === "conceptNum") countUp();
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold:.18, rootMargin:"0px 0px -6% 0px"});
+    targets.forEach(function(t){ io.observe(t); });
+  } else {
+    targets.forEach(function(t){ t.classList.add("is-in"); });
+  }
+
+  /* ---------- 99.62 count up ---------- */
+  var counted = false;
+  function countUp(){
+    if(counted) return; counted = true;
+    var el = document.getElementById("countUp");
+    var start = null, dur = 2200, to = 99.62;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 4);
+      el.textContent = (to * e).toFixed(2).padStart(5, "0");
+      if(p < 1) requestAnimationFrame(step);
+    }
+    el.textContent = "00.00";
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- Scroll rail ---------- */
+  var fill = document.getElementById("railFill");
+  var flame = document.getElementById("railFlame");
+  var flamePath = document.getElementById("railFlamePath");
+  var num = document.getElementById("railNum");
+  var C1 = [232,137,58], C2 = [90,169,255];
+  function mix(a,b,t){ return [0,1,2].map(function(i){ return Math.round(a[i] + (b[i]-a[i]) * t); }); }
+  function onScrollRail(){
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
+    fill.style.height = (p * 100) + "%";
+    flame.style.top = (p * 100) + "%";
+    var c = mix(C1, C2, p);
+    flamePath.setAttribute("fill", "rgb(" + c.join(",") + ")");
+    flame.style.setProperty("--rail-glow", "rgba(" + c.join(",") + ",.8)");
+    num.textContent = (p * 99.62).toFixed(2).padStart(5, "0");
+  }
+
+  var ticking = false;
+  window.addEventListener("scroll", function(){
+    if(!ticking){ requestAnimationFrame(function(){ onScrollHeader(); onScrollRail(); ticking = false; }); ticking = true; }
+  }, {passive:true});
+  window.addEventListener("resize", onScrollRail);
+  onScrollHeader(); onScrollRail();
+
+  /* ---------- Hero flame canvas（橙→青へ変わる炎） ---------- */
+  var cv = document.getElementById("flame");
+  var ctx = cv.getContext("2d");
+  var W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var parts = [], born = performance.now(), mouseX = 0, visible = true, raf = null;
+  var EMBER = [[255,214,150],[243,160,80],[210,90,30]];
+  var BLUE  = [[235,248,255],[110,180,255],[40,90,220]];
+
+  function resize(){
+    var r = cv.getBoundingClientRect();
+    W = r.width; H = r.height;
+    cv.width = W * DPR; cv.height = H * DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  function srcX(){ return W < 760 ? W * 0.5 : W * 0.42; }
+  function spawn(){
+    var base = Math.min(W, H);
+    return {
+      x: srcX() + (Math.random() - .5) * base * .09,
+      y: H * .78 + (Math.random() - .5) * 8,
+      vx: (Math.random() - .5) * .35,
+      vy: -(Math.random() * 1.3 + 1.1) * (base / 700),
+      life: 0,
+      max: 60 + Math.random() * 60,
+      r: base * (.028 + Math.random() * .03)
+    };
+  }
+  function colorAt(pal, k, a){
+    // k: 0 core -> 1 tip
+    var c = k < .5 ? mix(pal[0], pal[1], k * 2) : mix(pal[1], pal[2], (k - .5) * 2);
+    return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + a + ")";
+  }
+  function paletteT(now){
+    if(reduce) return 1;
+    var t = (now - born - 1400) / 3200; // 1.4秒後から約3.2秒で青へ
+    t = Math.min(Math.max(t, 0), 1);
+    return t * t * (3 - 2 * t);
+  }
+  function draw(now){
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "rgba(11,18,32,.28)";
+    ctx.fillRect(0, 0, W, H);
+
+    var t = paletteT(now);
+    var pal = [mix(EMBER[0],BLUE[0],t), mix(EMBER[1],BLUE[1],t), mix(EMBER[2],BLUE[2],t)];
+    // 炎の背後の光
+    var g = ctx.createRadialGradient(srcX(), H*.66, 0, srcX(), H*.66, Math.min(W,H)*.45);
+    g.addColorStop(0, colorAt(pal, .5, .12 + t*.04));
+    g.addColorStop(1, "rgba(11,18,32,0)");
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+    ctx.globalCompositeOperation = "lighter";
+    var want = W < 760 ? 110 : 190;
+    for(var s = 0; s < 4 && parts.length < want; s++) parts.push(spawn());
+    // 完全燃焼に近づくほど、炎は細く落ち着く
+    var sway = (1 - t) * 1.0 + .25;
+    for(var i = parts.length - 1; i >= 0; i--){
+      var p = parts[i];
+      p.life++;
+      var k = p.life / p.max;
+      if(k >= 1){ parts[i] = spawn(); continue; }
+      p.vx += (srcX() - p.x) * .0009 + (Math.random() - .5) * .12 * sway + mouseX * .004;
+      p.x += p.vx; p.y += p.vy * (1 + t * .25);
+      var rad = p.r * (1 - k) * (1 - t * .25);
+      var a = (1 - k) * (.34 - t * .06);
+      ctx.beginPath();
+      ctx.fillStyle = colorAt(pal, k, a);
+      ctx.arc(p.x, p.y, Math.max(rad, .5), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // 小さな火の粉（青くなるほど消えていく）
+    if(t < .9 && Math.random() < .25 * (1 - t)){
+      var sp = spawn(); sp.r *= .12; sp.vy *= 1.9; sp.max *= 1.4; parts.push(sp);
+    }
+  }
+  function loop(now){
+    if(visible) draw(now);
+    raf = requestAnimationFrame(loop);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+  window.addEventListener("pointermove", function(e){ mouseX = (e.clientX / window.innerWidth - .5); }, {passive:true});
+
+  if(reduce){
+    // 静止画：青い炎を数フレーム分だけ描いて止める
+    for(var f = 0; f < 140; f++) draw(performance.now() + 99999);
+  } else {
+    if("IntersectionObserver" in window){
+      new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }).observe(cv);
+    }
+    raf = requestAnimationFrame(loop);
+  }
+  document.addEventListener("visibilitychange", function(){
+    if(document.hidden){ visible = false; } else { visible = true; }
+  });
+
+  /* ---------- Load sequence ---------- */
+  requestAnimationFrame(function(){ document.body.classList.add("is-loaded"); });
+})();
+</script>
+</body>
+</html>
